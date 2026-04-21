@@ -1,0 +1,134 @@
+<div
+  *ngIf="open"
+  class="fixed inset-0 bg-black/40 z-50 flex justify-end"
+  (click)="close.emit()"
+>
+  <div
+    class="w-[400px] max-w-full bg-white h-full p-6 overflow-y-auto"
+    (click)="stop($event)"
+  >
+    <h2 class="text-2xl font-bold mb-6">Filters</h2>
+
+    <!-- Name -->
+    <div class="mb-4">
+      <label class="text-sm font-medium">Product Name</label>
+      <input
+        type="text"
+        [(ngModel)]="draft.name"
+        class="w-full border rounded p-2 mt-1"
+      />
+    </div>
+
+    <!-- Description -->
+    <div class="mb-4">
+      <label class="text-sm font-medium">Description</label>
+      <input
+        type="text"
+        [(ngModel)]="draft.description"
+        class="w-full border rounded p-2 mt-1"
+      />
+    </div>
+
+    <!-- Price Range -->
+    <div class="mb-4 grid grid-cols-2 gap-2">
+      <div>
+        <label class="text-sm font-medium">Min Price</label>
+        <input
+          type="number"
+          [(ngModel)]="draft.minPrice"
+          class="w-full border rounded p-2 mt-1"
+        />
+      </div>
+
+      <div>
+        <label class="text-sm font-medium">Max Price</label>
+        <input
+          type="number"
+          [(ngModel)]="draft.maxPrice"
+          class="w-full border rounded p-2 mt-1"
+        />
+      </div>
+    </div>
+
+    <!-- Stock -->
+    <div class="mb-4">
+      <label class="text-sm font-medium">Min Stock</label>
+      <input
+        type="number"
+        [(ngModel)]="draft.stockQuantity"
+        class="w-full border rounded p-2 mt-1"
+      />
+    </div>
+
+    <!-- Category -->
+    <div class="mb-4">
+      <label class="text-sm font-medium">Category</label>
+      <select
+        [(ngModel)]="draft.categoryName"
+        class="w-full border rounded p-2 mt-1"
+      >
+        <option value="">All</option>
+        <option *ngFor="let c of categories" [value]="c.name">
+          {{ c.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Date -->
+    <div class="mb-4 grid grid-cols-2 gap-2">
+      <div>
+        <label class="text-sm font-medium">Created From</label>
+        <input
+          type="date"
+          [(ngModel)]="draft.createdFrom"
+          class="w-full border rounded p-2 mt-1"
+        />
+      </div>
+
+      <div>
+        <label class="text-sm font-medium">Created To</label>
+        <input
+          type="date"
+          [(ngModel)]="draft.createdTo"
+          class="w-full border rounded p-2 mt-1"
+        />
+      </div>
+    </div>
+
+    <!-- Sorting -->
+    <div class="mb-6">
+      <label class="text-sm font-medium">Sort By</label>
+      <select [(ngModel)]="draft.sortBy" class="w-full border rounded p-2 mt-1">
+        <option value="">None</option>
+        <option value="price">Price</option>
+        <option value="name">Name</option>
+        <option value="createdAt">Created Date</option>
+      </select>
+
+      <select
+        [(ngModel)]="draft.sortOrder"
+        class="w-full border rounded p-2 mt-2"
+      >
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </select>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex gap-3">
+      <button
+        class="flex-1 bg-black text-white py-3 rounded-lg"
+        (click)="onApply()"
+      >
+        Apply
+      </button>
+
+      <button
+        class="flex-1 border py-3 rounded-lg"
+        (click)="onReset()"
+      >
+        Reset
+      </button>
+    </div>
+  </div>
+</div>

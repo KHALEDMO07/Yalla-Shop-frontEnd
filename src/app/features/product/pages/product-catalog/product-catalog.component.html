@@ -1,31 +1,32 @@
 <main class="flex-grow pt-[88px] bg-background text-on-surface font-body antialiased min-h-screen">
-  <div class="bg-surface sticky top-[72px] z-30 transition-colors border-b border-outline-variant/10">
-    <div class="max-w-7xl mx-auto px-8 py-6">
-      <nav class="flex items-center gap-3 overflow-x-auto no-scrollbar">
-        <button
-          type="button"
+  <div
+    class="bg-surface sticky top-[72px] z-30 border-b border-outline-variant/10 backdrop-blur supports-[backdrop-filter]:bg-surface/80">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-4">
+
+      <nav class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+
+        <!-- ALL BUTTON -->
+        <button type="button" (click)="resetFilters()"
+          class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 border"
           [ngClass]="{
-            'bg-primary text-on-primary font-bold shadow-md': !appliedCategoryName,
-            'bg-surface-container text-on-surface hover:bg-surface-container-high': appliedCategoryName
-          }"
-          class="font-label text-sm px-5 py-2 rounded-full flex-shrink-0 transition-colors"
-          (click)="resetFilters()"
-        >
+          'bg-primary text-white border-primary shadow-md scale-105': !filters.categoryName,
+          'bg-white text-gray-700 border-gray-200 hover:bg-gray-100': filters.categoryName
+        }">
           All
         </button>
-        <button
-          *ngFor="let c of categories"
-          type="button"
+
+        <!-- CATEGORY BUTTONS -->
+        <button *ngFor="let c of categories" type="button" (click)="setCategoryChip(c.name)"
+          class="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 border"
           [ngClass]="{
-            'bg-primary text-on-primary font-bold shadow-md': appliedCategoryName === c.name,
-            'bg-surface-container text-on-surface hover:bg-surface-container-high': appliedCategoryName !== c.name
-          }"
-          class="font-label text-sm px-5 py-2 rounded-full flex-shrink-0 transition-colors"
-          (click)="setCategoryChip(c.name)"
-        >
+          'bg-primary text-white border-primary shadow-md scale-105': filters.categoryName === c.name,
+          'bg-white text-gray-700 border-gray-200 hover:bg-gray-100 hover:scale-105': filters.categoryName !== c.name
+        }">
           {{ c.name }}
         </button>
+
       </nav>
+
     </div>
   </div>
 
@@ -37,19 +38,15 @@
       </p>
     </div>
     <div class="flex items-center gap-4">
-      <button
-        type="button"
+      <button type="button"
         class="flex items-center gap-2 text-on-surface font-label text-sm font-medium px-4 py-2 rounded border border-outline-variant/20 hover:bg-surface-container-low transition-colors"
-        (click)="openFilters()"
-      >
+        (click)="openFilters()">
         <span class="material-symbols-outlined text-sm">tune</span>
         Filter
       </button>
-      <button
-        type="button"
+      <button type="button"
         class="flex items-center gap-2 text-on-surface font-label text-sm font-medium px-4 py-2 rounded border border-outline-variant/20 hover:bg-surface-container-low transition-colors"
-        (click)="resetFilters()"
-      >
+        (click)="resetFilters()">
         <span class="material-symbols-outlined text-sm">restart_alt</span>
         Reset
       </button>
@@ -58,12 +55,9 @@
 
   <div *ngIf="activeFilters.length" class="max-w-7xl mx-auto px-8 mb-5">
     <div class="flex flex-wrap gap-2">
-      <button
-        *ngFor="let filter of activeFilters"
-        type="button"
+      <button *ngFor="let filter of activeFilters" type="button"
         class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
-        (click)="removeActiveFilter(filter.key)"
-      >
+        (click)="removeActiveFilter(filter.key)">
         {{ filter.label }}
         <span class="material-symbols-outlined text-sm">close</span>
       </button>
@@ -71,45 +65,47 @@
   </div>
 
   <div class="max-w-7xl mx-auto px-8 pb-4 space-y-3">
-    <div *ngIf="cartMessage" class="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950 flex items-center gap-3">
+    <div *ngIf="cartMessage"
+      class="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950 flex items-center gap-3">
       <span class="material-symbols-outlined text-emerald-600">check_circle</span>
       {{ cartMessage }}
     </div>
-    </div>
+  </div>
 
   <div class="max-w-7xl mx-auto px-8 pb-24">
     <div *ngIf="loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
+
       <article *ngFor="let _ of loadingSkeletons" class="animate-pulse">
         <div class="aspect-[4/5] bg-slate-200 rounded-2xl mb-4"></div>
         <div class="h-4 bg-slate-200 rounded w-3/4 mb-2"></div>
         <div class="h-4 bg-slate-200 rounded w-1/2"></div>
       </article>
+
     </div>
 
     <div *ngIf="!loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
-      <article
-        *ngFor="let p of products"
+      <article *ngFor="let p of products"
         class="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group cursor-pointer flex flex-col"
-        (click)="goToProduct(p.id, $event)"
-      >
+        (click)="goToProduct(p.id, $event)">
         <div class="relative aspect-[4/5] bg-slate-100 overflow-hidden">
-          <img
-            *ngIf="pictureSrcFor(p) as src"
-            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            [src]="src"
-            [alt]="p.name"
-          />
+          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            [src]="pictureSrcFor(p) || 'assets/images/placeholder.png'" [alt]="p.name"
+            (error)="onProductImageError(p)" />
           <div class="absolute top-4 left-4">
-            <span class="bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
+            <span
+              class="bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
               {{ p.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' }}
             </span>
           </div>
-          <button
-            type="button"
-            class="absolute top-4 right-4 h-10 w-10 flex items-center justify-center rounded-full bg-white shadow-md text-slate-600 hover:text-rose-500 transition-colors"
-            (click)="addToWishlist(p, $event)"
-          >
-            <span class="material-symbols-outlined">favorite</span>
+          <button type="button"
+            class="absolute top-4 right-4 h-10 w-10 flex items-center justify-center rounded-full bg-white shadow-md transition-all duration-300"
+            [ngClass]="{
+    'text-rose-500 scale-110': wishlistState[p.id],
+    'text-slate-600 hover:text-rose-500': !wishlistState[p.id]
+  }" (click)="addToWishlist(p, $event)">
+            <span class="material-symbols-outlined">
+              {{ wishlistState[p.id] ? 'favorite' : 'favorite_border' }}
+            </span>
           </button>
         </div>
 
@@ -123,36 +119,41 @@
             <ng-container *ngIf="productRatings[p.id] as vm">
               <div *ngIf="vm.status === 'loaded' && !vm.noReviews" class="flex items-center text-amber-500">
                 <span *ngFor="let s of vm.stars" class="text-sm">
-                   <ng-container [ngSwitch]="s.kind">
-                      <span *ngSwitchCase="'full'">★</span>
-                      <span *ngSwitchCase="'empty'" class="text-slate-300">★</span>
-                      <span *ngSwitchCase="'half'" class="relative inline-block text-slate-300">
-                        ★<span class="absolute top-0 left-0 w-1/2 overflow-hidden text-amber-500">★</span>
-                      </span>
-                   </ng-container>
+                  <ng-container [ngSwitch]="s.kind">
+                    <span *ngSwitchCase="'full'">★</span>
+                    <span *ngSwitchCase="'empty'" class="text-slate-300">★</span>
+                    <span *ngSwitchCase="'half'" class="relative inline-block text-slate-300">
+                      ★<span class="absolute top-0 left-0 w-1/2 overflow-hidden text-amber-500">★</span>
+                    </span>
+                  </ng-container>
                 </span>
                 <span class="text-xs text-slate-400 ml-1">({{ vm.average }})</span>
               </div>
-              <p *ngIf="vm.status === 'loaded' && vm.noReviews" class="text-[10px] text-slate-400 uppercase tracking-tighter">No reviews</p>
+              <p *ngIf="vm.status === 'loaded' && vm.noReviews"
+                class="text-[10px] text-slate-400 uppercase tracking-tighter">No reviews</p>
             </ng-container>
           </div>
 
           <div class="mt-auto">
-            <button
-              type="button"
+            <button type="button"
               class="w-full bg-slate-900 text-white py-3 rounded-xl font-semibold text-sm hover:bg-primary transition-colors flex items-center justify-center gap-2"
-              (click)="addToCart(p, $event)"
-            >
+              (click)="addToCart(p, $event)">
               Add to Cart
             </button>
           </div>
         </div>
       </article>
-    </div>
 
+    </div>
+    <div *ngIf="wishlistMessage"
+      class="fixed bottom-6 right-6 bg-black text-white px-5 py-3 rounded-xl shadow-lg text-sm animate-fade-in">
+      {{ wishlistMessage }}
+    </div>
     <div *ngIf="!loading && products.length === 0" class="py-20 text-center">
       <p class="text-slate-500">No products found. Try adjusting your filters.</p>
     </div>
   </div>
 
-  </main>
+</main>
+<app-filter-drawer [open]="filterOpen" [filters]="filters" [categories]="categories" (close)="filterOpen = false"
+  (apply)="onApplyFilters($event)" (reset)="resetFilters()"></app-filter-drawer>
