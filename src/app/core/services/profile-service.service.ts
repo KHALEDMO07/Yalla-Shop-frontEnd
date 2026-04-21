@@ -14,6 +14,9 @@ import { ConfirmChangeEmail } from '../models/confirm-change-email';
 export class ProfileServiceService {
 
   private apiUrl = 'https://yallashop-api.runasp.net/api/account';
+  private readonly clientUrl = typeof window !== 'undefined'
+    ? window.location.origin
+    : 'https://yalla-shop-front-avk96jtda-khaledmo07s-projects.vercel.app/';
 
   constructor(private http: HttpClient) { }
 
@@ -32,9 +35,14 @@ export class ProfileServiceService {
   }
   updateEmailRequest(token: string, updateEmailRequest: UpdateEmailRequest): Observable<ResponseModel<boolean>> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<ResponseModel<boolean>>(`${this.apiUrl}/update-email`, updateEmailRequest, { headers });
+    const body = {
+      ...updateEmailRequest,
+      clientUrl: this.clientUrl
+    };
+    return this.http.post<ResponseModel<boolean>>(`${this.apiUrl}/update-email`, body, { headers });
   }
   confirmChangeEmail(confirmChangeEmail: ConfirmChangeEmail): Observable<ResponseModel<boolean>> {
     return this.http.post<ResponseModel<boolean>>(`${this.apiUrl}/confirm-change-email`, confirmChangeEmail);
   }
 }
+
