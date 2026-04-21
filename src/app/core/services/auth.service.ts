@@ -19,15 +19,17 @@ export class AuthService {
   /** Matches `api/Auth` on the server (see Swagger). */
   // private readonly apiUrl = `https://yallashop-api.runasp.net/api/Auth`;
   private readonly apiUrl = `${API_BASE_URL}/Auth`
+  private readonly clientUrl = typeof window !== 'undefined'
+    ? window.location.origin
+    : 'https://yalla-shop-front-avk96jtda-khaledmo07s-projects.vercel.app/';
 
   constructor (private http: HttpClient) {}
 
   register (userData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, {
       ...userData,
-      clientUrl: 'http://localhost:4200'
+      clientUrl: this.clientUrl
     });
-      clientUrl: window.location.origin
   }
 
 
@@ -40,7 +42,10 @@ export class AuthService {
   ForgetPassword (data: { userName: string }): Observable<any> {
     return this.http.post<ResponseModel<any>>(
       `${this.apiUrl}/forgot-password`,
-      data
+      {
+        ...data,
+        clientUrl: this.clientUrl
+      }
     )
   }
   ResetPassword (userId: string, code: string, data: any): Observable<any> {
