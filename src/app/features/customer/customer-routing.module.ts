@@ -7,6 +7,8 @@ import { CartComponent } from './pages/cart/cart.component';
 import { OrderHistoryComponent } from './pages/order-history/order-history.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
+import { UpdateEmailComponent } from '../Profile/Pages/UpdateEmail/update-email/update-email.component';
+import { ChangePasswordComponent } from '../Profile/Pages/ChangePassword/change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -18,6 +20,8 @@ const routes: Routes = [
       { path: 'cart', component: CartComponent, canActivate: [authGuard, roleGuard], data: { roles: ['Customer'] } },
       { path: 'orders', component: OrderHistoryComponent, canActivate: [authGuard, roleGuard], data: { roles: ['Customer'] } },
       { path: 'profile', component: ProfileComponent, canActivate: [authGuard, roleGuard], data: { roles: ['Customer'] } },
+      { path: 'update-email', component: UpdateEmailComponent, canActivate: [authGuard, roleGuard], data: { roles: ['Customer'] } },
+      { path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard, roleGuard], data: { roles: ['Customer'] } },
       { path: 'wishlist', component: WishlistComponent, canActivate: [authGuard, roleGuard], data: { roles: ['Customer'] } }
     ]
   }
