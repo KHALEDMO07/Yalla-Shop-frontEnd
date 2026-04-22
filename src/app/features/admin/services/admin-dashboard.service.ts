@@ -80,6 +80,8 @@ export class AdminDashboardService {
       );
   }
 
+
+
   updateProductStatus(productId: string, status: ProductStatus): Observable<boolean> {
     console.log(`Updating product ${productId} to status ${status}`);
     return this.http
@@ -131,6 +133,7 @@ export class AdminDashboardService {
 
   private mapUser(item: any): AdminCustomer {
     const isActive = this.toBoolean(item.isActive ?? item.isDeleted === false ?? true);
+
     return {
       id: String(item.id ?? item.userId ?? ''),
       fullName: String(item.fullName ?? item.name ?? item.displayName ?? '-'),

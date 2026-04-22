@@ -9,6 +9,7 @@ import { ManageProductsComponent } from './pages/manage-products/manage-products
 import { ManageSellersComponent } from './pages/manage-sellers/manage-sellers.component';
 import { PendingProductsComponent } from './pages/pending-products/pending-products.component';
 import { CreatePromoComponent } from './components/create-promo/create-promo.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CreatePromoComponent } from './components/create-promo/create-promo.com
     ManageProductsComponent,
     ManageSellersComponent,
     PendingProductsComponent,
-    CreatePromoComponent
+    CreatePromoComponent,
+    SidebarComponent
   ],
   imports: [
     SharedModule,

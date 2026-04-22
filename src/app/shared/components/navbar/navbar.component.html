@@ -1,59 +1,10 @@
-<!-- TopNavBar Section -->
-<!-- <header class="fixed top-0 w-full z-50 bg-white/85 backdrop-blur-md shadow-[0px_12px_32px_rgba(23,28,31,0.06)]">
-  <nav class="flex justify-between items-center px-8 h-20 max-w-full">
-    <div class="flex items-center gap-12">
-      <a class="text-2xl font-black text-[#00535b] tracking-tighter" routerLink="/">EditorialMarket</a>
-      <div class="hidden lg:flex items-center gap-8 font-['Manrope'] font-bold text-sm tracking-tight">
-        <a class="text-[#006D77] border-b-2 border-[#006D77] pb-1" routerLink="/products">Shop All</a>
-        <a class="text-slate-600 hover:text-[#006D77] transition-colors duration-200" routerLink="/products" [queryParams]="{ filter: 'new' }">New Arrivals</a>
-        <a class="text-slate-600 hover:text-[#006D77] transition-colors duration-200" routerLink="/vendors">Curated Vendors</a>
-        <a class="text-slate-600 hover:text-[#006D77] transition-colors duration-200" routerLink="/journal">Journal</a>
-      </div>
-    </div>
-    
-    <div class="flex-1 max-w-md mx-12 hidden md:block">
-      <div class="relative group">
-        <input class="w-full bg-surface-container-low border-none rounded-full py-2.5 px-6 focus:ring-2 focus:ring-primary/40 text-sm transition-all" placeholder="Search curated collections..." type="text"/>
-        <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline">search</span>
-      </div>
-    </div>
-    
-    <div class="flex items-center gap-6">
-      <button *ngIf="isCustomer" class="relative group p-2 hover:bg-slate-50 rounded-full transition-colors" routerLink="/wishlist">
-        <span class="material-symbols-outlined text-on-surface">favorite</span>
-      </button>
-      
-      <div class="relative group">
-        <button class="p-2 hover:bg-slate-50 rounded-full transition-colors flex items-center" routerLink="/cart">
-          <span class="material-symbols-outlined text-on-surface" data-icon="shopping_cart">shopping_cart</span>
-          <span class="absolute -top-1 -right-1 bg-secondary text-on-secondary text-[10px] font-bold px-1.5 py-0.5 rounded-full">2</span>
-        </button>
-        <div class="absolute right-0 mt-4 w-80 bg-surface-container-lowest shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 p-4 border border-outline-variant/10">
-          <p class="font-headline font-bold text-sm mb-4">Shopping Cart (2)</p>
-          <div class="space-y-4 mb-6">
-            <div class="flex gap-3">
-              <img class="w-12 h-12 rounded bg-surface object-cover" data-alt="Minimalist white ceramic vase with clean lines on a neutral background with soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBNPKO_xutLrGI08XT5guW_7JJuEoEm3UTCTjvnMPkC57FDg3k0IiEhunbS-lYnbos7RJbYVao0yKSfrgNEb4BZ2Jm-Oy38hH8KlVMIRT8KEZeuRoyU6OLUnmBHOt6lxvJ9QwBjSu4vN45dEvzzQB4XCwhoQG6F7EK54tGSfo-GPlRjWl72PKlb-dyMygccIj03MxNjp2Cwry651tPXB22l7zZ55cqKbYjtByl6dqiwWD00YDO-aV38_p3zqtWKWozE_9grfcswtQ"/>
-              <div class="flex-1">
-                <p class="text-xs font-semibold">Artisan Ceramic Vase</p>
-                <p class="text-xs text-outline">$85.00</p>
-              </div>
-            </div>
-          </div>
-          <button class="w-full bg-primary text-on-primary py-3 rounded-lg text-sm font-bold hover:bg-primary-container transition-colors" routerLink="/checkout">Checkout Now</button>
-        </div>
-      </div> -->
+
 
 <header class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200/70">
   <nav class="max-w-7xl mx-auto h-20 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
     <a routerLink="/home" class="text-lg sm:text-xl font-semibold tracking-tight text-slate-900">
       Yalla<span class="text-primary">Shop</span>
     </a>
-
-    <!-- <div class="hidden md:flex items-center gap-2">
-      <a routerLink="/home" class="nav-link">Home</a>
-      <a routerLink="/products" class="nav-link">Products</a>
-    </div> -->
-
     <div class="flex items-center gap-2 sm:gap-3">
       <!-- Add ID "cartIcon" to act as target for animation service -->
       <!-- Add animate-bounce class conditionally -->

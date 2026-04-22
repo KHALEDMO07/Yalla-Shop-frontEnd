@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { roleMatchGuard } from './core/guards/role.guard';
 import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
+import { guestGuard } from './core/guards/guest.guard';
 
 const routes: Routes = [
   // Default redirect
@@ -14,6 +15,7 @@ const routes: Routes = [
   // Auth (login, register, forgot-password)
   {
     path: 'auth',
+    canActivate: [guestGuard],
     loadChildren: () =>
       import('./features/auth/auth.module').then(m => m.AuthModule)
   },

@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService, AuthSessionUser } from '../../../../core/services/auth.service';
-import { AdminNavigationItem } from '../../models/admin.models';
-import { AdminToastService } from '../../services/admin-toast.service';
+import { Component } from '@angular/core'
+import { Router } from '@angular/router'
+import {
+  AuthService,
+  AuthSessionUser
+} from '../../../../core/services/auth.service'
+import { AdminNavigationItem } from '../../models/admin.models'
+import { AdminToastService } from '../../services/admin-toast.service'
 
 @Component({
   selector: 'app-admin-shell',
@@ -41,55 +44,55 @@ export class AdminShellComponent {
       icon: 'pending_actions',
       helperText: 'Approve or reject new products'
     }
-  ];
+  ]
 
-  isSidebarOpen = false;
+  isSidebarOpen = false
 
-  constructor(
+  constructor (
     private readonly authService: AuthService,
     private readonly router: Router,
     readonly toastService: AdminToastService
-  ) { }
+  ) {}
 
-  get currentUser(): AuthSessionUser | null {
-    return this.authService.getSessionUser();
+  get currentUser (): AuthSessionUser | null {
+    return this.authService.getSessionUser()
   }
 
-  get displayName(): string {
-    return this.currentUser?.fullName || 'Admin User';
+  get displayName (): string {
+    return this.currentUser?.fullName || 'Admin User'
   }
 
-  get displayEmail(): string {
-    return this.currentUser?.userName || 'admin@yalla-shop.com';
+  get displayEmail (): string {
+    return this.currentUser?.userName || 'admin@yalla-shop.com'
   }
 
-  get displayRole(): string {
-    return this.currentUser?.role || 'Admin';
+  get displayRole (): string {
+    return this.currentUser?.role || 'Admin'
   }
 
-  get initials(): string {
+  get initials (): string {
     return this.displayName
       .split(' ')
-      .filter((part) => !!part)
+      .filter(part => !!part)
       .slice(0, 2)
-      .map((part) => part[0]?.toUpperCase() ?? '')
-      .join('');
+      .map(part => part[0]?.toUpperCase() ?? '')
+      .join('')
   }
 
-  toggleSidebar(): void {
-    this.isSidebarOpen = !this.isSidebarOpen;
+  toggleSidebar (): void {
+    this.isSidebarOpen = !this.isSidebarOpen
+  }
+  trackByMessageId (index: number, message: any): string | number {
+    return message.id
   }
 
-  closeSidebar(): void {
-    this.isSidebarOpen = false;
+  closeSidebar (): void {
+    this.isSidebarOpen = false
   }
 
-  logout(): void {
-    this.authService.Logout();
-    this.router.navigate(['/auth/login']);
+  logout (): void {
+    this.authService.Logout()
+    this.router.navigate(['/auth/login'])
   }
 
-  trackByRoute(_index: number, item: AdminNavigationItem): string {
-    return item.route;
-  }
 }
