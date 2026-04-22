@@ -9,6 +9,8 @@ import { productPictureSrc } from '../../../../core/utils/product-image.util';
 import { Product, ProductStatus } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../../../core/services/cart.service';
+import { CartAnimationService } from '../../../../core/services/cart-animation.service';
+import { log } from 'console';
 
 @Component({
   selector: 'app-product-detail-page',
@@ -31,7 +33,8 @@ export class ProductDetailPageComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly productService: ProductService,
     private readonly categoryService: CategoryService,
-    private readonly cartService: CartService
+    private readonly cartService: CartService,
+    private readonly cartAnimationService: CartAnimationService
   ) {}
 
   ngOnInit(): void {
@@ -88,16 +91,40 @@ export class ProductDetailPageComponent implements OnInit {
     this.heroImageFailed = true;
   }
 
-  addToCart(): void {
+  // addToCart(): void {
+  //   if (!this.product) {
+  //     return;
+  //   }
+  //   this.cartMessage = null;
+  //   this.cartError = null;
+  //   this.cartService.addItem(this.product.id, 1).subscribe({
+  //     next: () => (this.cartMessage = 'Added to cart'),
+  //     error: err => (this.cartError = formatHttpError(err, 'Could not add to cart'))
+  //   });
+  // }
+  addToCart(event?: MouseEvent): void {
     if (!this.product) {
       return;
     }
+    console.log(event);
+    
+
+    const availableStock = this.product.stockQuantity; 
+
     this.cartMessage = null;
     this.cartError = null;
-    this.cartService.addItem(this.product.id, 1).subscribe({
+
+    this.cartService.addItem(this.product.id, 1, availableStock).subscribe({
       next: () => (this.cartMessage = 'Added to cart'),
-      error: err => (this.cartError = formatHttpError(err, 'Could not add to cart'))
+      error: err => {
+        this.cartError = err.message || formatHttpError(err, 'Could not add to cart');
+      }
     });
+
+    if (event && (availableStock === undefined || availableStock >= 1)) {
+      const img = this.product.picture || 'assets/images/placeholder.png';      
+      this.cartAnimationService.animateToCart(event, img);
+    }
   }
 
   private buildExtraRows(p: Product): { key: string; value: string }[] {
